@@ -1,1 +1,49 @@
-Welcome to mouseevents!
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Color picker</title>
+		<script>
+			function mouseCoords(e) {
+				// Для браузера IE
+				if (document.all) {
+					x = event.x + document.body.scrollLeft;
+					y = event.y + document.body.scrollTop;
+					// Для остальных браузеров
+				} else {
+					x = e.pageX;
+					// Координата X курсора
+					y = e.pageY;
+					// Координата Y курсора
+				}
+				var doc = document.documentElement, body = document.body;
+				var top = (doc && doc.scrollTop  || body && body.scrollTop  || 0);
+				var	xm = body.clientWidth;
+				var ym=1024;
+				var nX=255-Math.round((x*255)/xm);
+				if (nX<0)
+					nX=0;
+				var nY=255-Math.round((y*255)/ym);
+				if (nY<0)
+					nY=0;
+				var nTop=255-Math.round((top*255)/100);
+				if (nTop<0)
+					nTop=0;
+				var color="rgb("+nY+","+nX+","+nTop+")"; 
+				document.getElementById("main").style.backgroundColor = color;
+				document.getElementById("rgb").innerHTML = color;
+			}
+		</script>
+	</head>
+	<body id="main" onmousemove="mouseCoords(event)" style="height: 1024px;">  
+		    <div style="position:fixed;
+					    top: 50%;
+					    left: 50%;
+					    width:30em; 
+					    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+					    margin-left: -15em; /*set to a negative number 1/2 of your width*/
+					    border: 1px solid #ccc;
+					    background-color: #f3f3f3;
+					    text-align: center;" id="rgb"> 
+		    </div> 
+	</body>
+</html>
